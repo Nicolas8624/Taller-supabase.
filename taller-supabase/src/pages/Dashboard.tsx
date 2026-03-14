@@ -1,4 +1,5 @@
 // src/pages/Dashboard.tsx
+import { useNavigate }    from 'react-router-dom'
 import { useDashboard }   from '../hooks/useDashboard'
 import { StatCard }       from '../components/Dashboard/StatCard'
 import { TaskChart }      from '../components/Dashboard/TaskChart'
@@ -6,6 +7,7 @@ import { DonutChart }     from '../components/Dashboard/DonutChart'
 import { ActivityFeed }   from '../components/Dashboard/ActivityFeed'
 
 export function Dashboard() {
+  const navigate = useNavigate()
   const { stats, activity, distribution, recentFeed,
           loading, lastUpdated, refresh } = useDashboard()
 
@@ -31,11 +33,31 @@ export function Dashboard() {
             </p>
           )}
         </div>
-        <button onClick={refresh}
-          style={{ padding:'0.5rem 1rem', borderRadius:'8px', cursor:'pointer',
-            border:'1px solid #e2e8f0', background:'white' }}>
-          🔄 Actualizar
-        </button>
+
+        {/* Botones */}
+        <div style={{ display:'flex', gap:'8px' }}>
+          <button
+            onClick={() => navigate('/')}
+            style={{
+              padding: '0.5rem 1rem', borderRadius: '8px', cursor: 'pointer',
+              border: '1px solid #e2e8f0', background: 'white', color: '#0F172A',
+              fontSize: '14px', fontWeight: 500,
+              display: 'flex', alignItems: 'center', gap: '6px',
+            }}
+          >
+            ← Mis Tareas
+          </button>
+          <button
+            onClick={refresh}
+            style={{
+              padding: '0.5rem 1rem', borderRadius: '8px', cursor: 'pointer',
+              border: '1px solid #e2e8f0', background: 'white',
+              fontSize: '14px', color: '#64748B',
+            }}
+          >
+            🔄 Actualizar
+          </button>
+        </div>
       </div>
 
       {/* ---- Fila de KPIs ---- */}
